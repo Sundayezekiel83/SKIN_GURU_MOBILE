@@ -6,112 +6,104 @@
  */
 
 import React from 'react';
-import type {PropsWithChildren} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+import {SafeAreaView, Text, View, StyleSheet} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import Doctor from './android/app/src/Pages/Doctor';
+import SplashScreen from './android/app/src/Pages/Welcome/SplashScreen.jsx';
+import Onboarding from './android/app/src/Pages/Welcome/index.jsx';
+import CreateAccount from './android/app/src/Pages/Auth/CreateAccount.jsx';
+import CreateInfo from './android/app/src/Pages/Auth/CreateInfo.jsx';
+import Login from './android/app/src/Pages/Auth/Login.jsx';
+import ForgetPassword from './android/app/src/Pages/Auth/ForgetPassword.jsx';
+import ForgetPasswordMessage from './android/app/src/Pages/Auth/ForgetPasswordMessage.jsx';
+import HomeLayout from './android/app/src/Pages/Home';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
+const Stack = createNativeStackNavigator();
 
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+    <NavigationContainer>
+      {/* Onboarding */}
+      <Stack.Navigator initialRouteName="Splash">
+        <Stack.Screen
+          name="Splash"
+          component={SplashScreen}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="User"
+          component={CreateAccount}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="Professional"
+          component={CreateAccount}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="CreateInfo"
+          component={CreateInfo}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="ForgetPassword"
+          component={ForgetPassword}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="ForgetPasswordMessage"
+          component={ForgetPasswordMessage}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
+          options={{
+            headerShown: false, // Hide the header for this screen
+          }}
+        />
+
+        <Stack.Screen
+          name="Onboarding"
+          component={Onboarding}
+          options={{headerShown: false}}
+        />
+
+        {/* end of onboarding */}
+
+        {/* Home Dashboard */}
+        <Stack.Screen
+          name="Root"
+          component={HomeLayout}
+          options={{
+            headerShown: false,
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container: {
+    flex: 1,
+    alignItems: 'center',
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
+  whiteText: {
+    color: 'red',
   },
 });
 
